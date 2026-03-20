@@ -60,8 +60,16 @@ def main(args):
     param_count = count_parameters(model)
     print(f"Model parameters: {param_count:,} (must be < 5,000,000,000)")
     
-    criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=1e-2)
+
+    total_steps = len(train_loader) * args.epochs
+    warmup_steps = int(0.1 * total_steps)
+    def lr_lambda(current_step: int):
+        if current_step < warmup_steps:
+            return float(current_step) / float(max(1, warmup_steps))
+        return max(0.0, float(total_steps - current_step) / float(max(1, total_steps - warmup_steps)))
+    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
 
     best_f1 = 0.0
     start_epoch = 0
@@ -72,6 +80,8 @@ def main(args):
         checkpoint = torch.load(checkpoint_path, map_location=device)
         model.load_state_dict(checkpoint['model_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        if 'scheduler_state_dict' in checkpoint:
+            scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
         start_epoch = checkpoint['epoch'] + 1
         best_f1 = checkpoint.get('best_f1', 0.0)
     else:
@@ -86,7 +96,9 @@ def main(args):
             outputs = model(texts)
             loss = criterion(outputs, labels)
             loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
             optimizer.step()
+            scheduler.step()
             total_loss += loss.item()
             if i % 100 == 0:
                 print(f"Epoch {epoch+1}/{args.epochs} | Batch {i}/{len(train_loader)} | Loss: {loss.item():.4f}")
@@ -112,6 +124,7 @@ def main(args):
                 'epoch': epoch,
                 'model_state_dict': model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict(),
+                'scheduler_state_dict': scheduler.state_dict(),
                 'best_f1': best_f1
             }
             torch.save(checkpoint, os.path.join(args.save_dir, 'checkpoint.pt'))

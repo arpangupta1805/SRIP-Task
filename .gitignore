@@ -5,3 +5,6 @@ __pycache__
 *.parquet
 *.json
 *.joblibLr 
+
+#Any checkpoint.pt files should not be tracked
+checkpoint.pt
