@@ -1,0 +1,36 @@
+FastText Model Evaluation
+
+
+                             precision    recall  f1-score   support
+
+                   software     0.8894    0.8874    0.8884       924
+science_math_and_technology     0.9072    0.9377    0.9222      2711
+       software_development     0.8613    0.9140    0.8868      1046
+             transportation     0.9869    0.9551    0.9708       869
+         education_and_jobs     0.9064    0.9025    0.9045      1857
+       finance_and_business     0.9659    0.9662    0.9661      2931
+                      games     0.7895    0.5114    0.6207        88
+              entertainment     0.9228    0.9447    0.9336      1682
+             art_and_design     0.7564    0.3758    0.5021       157
+                 literature     0.8486    0.8961    0.8717       876
+                 industrial     0.7470    0.5082    0.6049       122
+                     health     0.8193    0.7276    0.7708       268
+                   politics     0.8663    0.9113    0.8882      1330
+                   religion     0.8313    0.8864    0.8580       678
+      history_and_geography     0.8219    0.8282    0.8251       652
+         fashion_and_beauty     0.8226    0.5730    0.6755        89
+         sports_and_fitness     0.9589    0.9478    0.9533      1034
+           home_and_hobbies     0.9853    0.9252    0.9543       869
+    electronics_and_hardare     0.8784    0.7182    0.7903       181
+                social_life     0.8346    0.7965    0.8151       285
+              crime_and_law     0.8988    0.9165    0.9075       814
+            food_and_dining     0.9200    0.9064    0.9132       203
+         travel_and_tourism     0.8862    0.7957    0.8385       186
+              adult_content     0.9931    0.9730    0.9829       148
+
+                   accuracy                         0.9079     20000
+                  macro avg     0.8791    0.8210    0.8435     20000
+               weighted avg     0.9074    0.9079    0.9064     20000
+
+Accuracy: 0.9079
+Weighted F1: 0.9064

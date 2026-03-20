@@ -1,0 +1,35 @@
+TF-IDF + Logistic Regression Evaluation
+
+                             precision    recall  f1-score   support
+
+              adult_content     0.9931    0.9730    0.9829       148
+             art_and_design     0.6591    0.5541    0.6021       157
+              crime_and_law     0.9334    0.9128    0.9230       814
+         education_and_jobs     0.9200    0.9225    0.9212      1857
+    electronics_and_hardare     0.9071    0.7017    0.7913       181
+              entertainment     0.9073    0.9655    0.9355      1682
+         fashion_and_beauty     0.9107    0.5730    0.7034        89
+       finance_and_business     0.9745    0.9645    0.9695      2931
+            food_and_dining     0.9424    0.8867    0.9137       203
+                      games     0.9020    0.5227    0.6619        88
+                     health     0.8597    0.7090    0.7771       268
+      history_and_geography     0.8805    0.8252    0.8519       652
+           home_and_hobbies     0.9769    0.9241    0.9497       869
+                 industrial     0.9180    0.4590    0.6120       122
+                 literature     0.8525    0.9041    0.8776       876
+                   politics     0.8555    0.9301    0.8912      1330
+                   religion     0.8928    0.8599    0.8760       678
+science_math_and_technology     0.8920    0.9506    0.9204      2711
+                social_life     0.8846    0.8070    0.8440       285
+                   software     0.8808    0.9037    0.8921       924
+       software_development     0.8620    0.9140    0.8872      1046
+         sports_and_fitness     0.9672    0.9400    0.9534      1034
+             transportation     0.9892    0.9528    0.9707       869
+         travel_and_tourism     0.9448    0.7366    0.8278       186
+
+                   accuracy                         0.9138     20000
+                  macro avg     0.9044    0.8247    0.8557     20000
+               weighted avg     0.9147    0.9138    0.9125     20000
+
+Accuracy: 0.9138
+Weighted F1: 0.9125
