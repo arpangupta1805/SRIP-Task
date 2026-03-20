@@ -168,7 +168,7 @@ def main(args):
     print(f"Macro F1: {f1_macro:.4f}")
 
     if args.save_dir:
-        output_file = os.path.join(args.save_dir, 'transformer_metrics.txt')
+        output_file = os.path.join(args.save_dir, 'metrics.txt')
         with open(output_file, 'w') as f:
             f.write("Transformer Model Final Evaluation\n")
             f.write(report + "\n")

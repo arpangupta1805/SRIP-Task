@@ -66,8 +66,12 @@ The final modal of our investigation is the Custom Transformer structurally loca
 ```bash
 python src/transformer/train.py --data_path dataset_sample_200k.parquet --save_dir experiments/transformer/
 
-```
 
+```
+optional args 
+--epochs 
+--batch_size 
+--lr 
 ### (Inference Mode)
 You can directly loop into the architecture via inference mapping and feed custom unstructured strings natively to predict 24 distinctive classifications.
 

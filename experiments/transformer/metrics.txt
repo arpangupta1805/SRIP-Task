@@ -1,36 +1,35 @@
-Transformer Model Evaluation on Validation Set
-
+Transformer Model Final Evaluation
                              precision    recall  f1-score   support
 
-                   software     0.8448    0.9134    0.8778       924
-science_math_and_technology     0.8699    0.9469    0.9067      2711
-       software_development     0.8954    0.8671    0.8810      1046
-             transportation     0.9833    0.9482    0.9654       869
-         education_and_jobs     0.9149    0.8912    0.9029      1857
-       finance_and_business     0.9733    0.9577    0.9654      2931
-                      games     0.8605    0.4205    0.5649        88
-              entertainment     0.9350    0.9328    0.9339      1682
-             art_and_design     0.6818    0.3822    0.4898       157
-                 literature     0.8247    0.9075    0.8641       876
-                 industrial     0.7229    0.4918    0.5854       122
-                     health     0.7645    0.7388    0.7514       268
-                   politics     0.8170    0.9301    0.8699      1330
-                   religion     0.8308    0.8982    0.8632       678
-      history_and_geography     0.8322    0.7454    0.7864       652
-         fashion_and_beauty     0.7879    0.5843    0.6710        89
-         sports_and_fitness     0.9540    0.9429    0.9484      1034
-           home_and_hobbies     0.9812    0.9033    0.9407       869
-    electronics_and_hardare     0.8148    0.7293    0.7697       181
-                social_life     0.7891    0.8140    0.8014       285
-              crime_and_law     0.9484    0.8808    0.9134       814
-            food_and_dining     0.9448    0.8424    0.8906       203
-         travel_and_tourism     0.9549    0.6828    0.7962       186
-              adult_content     0.9932    0.9797    0.9864       148
+                   software     0.8373    0.9080    0.8712       924
+science_math_and_technology     0.8950    0.9369    0.9155      2711
+       software_development     0.8912    0.8929    0.8921      1046
+             transportation     0.9622    0.9655    0.9638       869
+         education_and_jobs     0.9206    0.8993    0.9098      1857
+       finance_and_business     0.9652    0.9649    0.9650      2931
+                      games     0.7302    0.5227    0.6093        88
+              entertainment     0.9279    0.9411    0.9345      1682
+             art_and_design     0.7375    0.3758    0.4979       157
+                 literature     0.8843    0.9075    0.8958       876
+                 industrial     0.6042    0.4754    0.5321       122
+                     health     0.8125    0.6791    0.7398       268
+                   politics     0.8536    0.8985    0.8755      1330
+                   religion     0.8071    0.9012    0.8516       678
+      history_and_geography     0.8419    0.8252    0.8335       652
+         fashion_and_beauty     0.7385    0.5393    0.6234        89
+         sports_and_fitness     0.9429    0.9429    0.9429      1034
+           home_and_hobbies     0.9745    0.9252    0.9492       869
+    electronics_and_hardare     0.8881    0.7017    0.7840       181
+                social_life     0.8050    0.7965    0.8007       285
+              crime_and_law     0.9295    0.8907    0.9097       814
+            food_and_dining     0.8883    0.8621    0.8750       203
+         travel_and_tourism     0.8875    0.7634    0.8208       186
+              adult_content     0.9863    0.9730    0.9796       148
 
-                   accuracy                         0.8995     20000
-                  macro avg     0.8716    0.8055    0.8303     20000
-               weighted avg     0.9008    0.8995    0.8981     20000
-               
-Accuracy: 0.8995
-Weighted F1: 0.8981
-Macro F1: 0.8303
+                   accuracy                         0.9042     20000
+                  macro avg     0.8630    0.8120    0.8322     20000
+               weighted avg     0.9035    0.9042    0.9027     20000
+
+Accuracy: 0.9042
+Weighted F1: 0.9027
+Macro F1: 0.8322
