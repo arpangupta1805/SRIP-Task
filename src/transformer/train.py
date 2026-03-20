@@ -125,6 +125,46 @@ def main(args):
     end_time = time.time()
     print(f"Total training time: {end_time - start_time:.2f} seconds")
 
+    # Final Evaluation with best model
+    if args.save_dir and os.path.exists(os.path.join(args.save_dir, 'model.pt')):
+        print("Loading best model for final evaluation...")
+        model.load_state_dict(torch.load(os.path.join(args.save_dir, 'model.pt'), map_location=device))
+        
+    model.eval()
+    val_preds, val_labels_final = [], []
+    with torch.no_grad():
+        for texts, labels in val_loader:
+            texts, labels = texts.to(device), labels.to(device)
+            outputs = model(texts)
+            _, preds = torch.max(outputs, 1)
+            val_preds.extend(preds.cpu().numpy())
+            val_labels_final.extend(labels.cpu().numpy())
+    
+    idx2topic = {v: k for k, v in topic2idx.items()}
+    target_names = [idx2topic[i] for i in range(len(topic2idx))]
+    
+    report = classification_report(val_labels_final, val_preds, target_names=target_names, digits=4)
+    acc = accuracy_score(val_labels_final, val_preds)
+    f1_weighted = f1_score(val_labels_final, val_preds, average='weighted')
+    f1_macro = f1_score(val_labels_final, val_preds, average='macro')
+    
+    print("\n--- Final Evaluation ---")
+    print(report)
+    print(f"Accuracy: {acc:.4f}")
+    print(f"Weighted F1: {f1_weighted:.4f}")
+    print(f"Macro F1: {f1_macro:.4f}")
+
+    if args.save_dir:
+        output_file = os.path.join(args.save_dir, 'transformer_metrics.txt')
+        with open(output_file, 'w') as f:
+            f.write("Transformer Model Final Evaluation\n")
+            f.write(report + "\n")
+            f.write(f"Accuracy: {acc:.4f}\n")
+            f.write(f"Weighted F1: {f1_weighted:.4f}\n")
+            f.write(f"Macro F1: {f1_macro:.4f}\n")
+        print(f"Metrics saved to {output_file}")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_path', type=str, required=True)

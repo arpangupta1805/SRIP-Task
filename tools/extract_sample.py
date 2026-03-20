@@ -8,8 +8,13 @@ def sample_data(input_file, output_file, size):
     try:
         parquet_file = pq.ParquetFile(input_file)
         df_list = []
-        for i in range(2):
-            df_list.append(parquet_file.read_row_group(i).to_pandas())
+        total_rows = 0
+        for i in range(parquet_file.num_row_groups):
+            chunk = parquet_file.read_row_group(i).to_pandas()
+            df_list.append(chunk)
+            total_rows += len(chunk)
+            if total_rows >= size:
+                break
 
         df = pd.concat(df_list, ignore_index=True)
         df = df.head(size)
@@ -21,4 +26,4 @@ def sample_data(input_file, output_file, size):
         print(f"Error: {e}")
 
 if __name__ == "__main__":
-    sample_data('dataset_10M.parquet', 'dataset_sample_2M.parquet', 2000000)
+    sample_data('dataset_10M.parquet', 'dataset_sample_500k.parquet', 500000)

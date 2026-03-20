@@ -63,9 +63,9 @@ python src/lstm/train.py
 
 The final modal of our investigation is the Custom Transformer structurally located within `src/transformer/`. It captures deep syntactic properties while processing long sequences heavily in parallel, effectively nullifying LSTM/RNN gating bottlenecks while maintaining a parameter profile strictly scaled beneath 10M (dramatically smaller than the 5-Billion scale limit context).
 
-To natively trigger its evaluation and benchmark computation over your `experiments` environment:
 ```bash
-python src/transformer/evaluate.py --data_path dataset_sample_200k.parquet --model_dir experiments/transformer/
+python src/transformer/train.py --data_path dataset_sample_200k.parquet --save_dir experiments/transformer/
+
 ```
 
 ### (Inference Mode)
