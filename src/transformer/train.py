@@ -44,8 +44,20 @@ def main(args):
     train_dataset = ParquetDataset(df_train, vocab, topic2idx, max_len=args.max_len)
     val_dataset = ParquetDataset(df_val, vocab, topic2idx, max_len=args.max_len)
 
-    train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=args.batch_size)
+    train_loader = DataLoader(
+        train_dataset,
+        batch_size=args.batch_size,
+        shuffle=True,
+        num_workers=8,        # 🔥 KEY
+        pin_memory=True       # 🔥 KEY
+    )
+
+    val_loader = DataLoader(
+        val_dataset,
+        batch_size=args.batch_size,
+        num_workers=8,
+        pin_memory=True
+    )
 
     # Model
     model = CustomTransformer(
@@ -91,7 +103,8 @@ def main(args):
         model.train()
         total_loss = 0
         for i, (texts, labels) in enumerate(train_loader):
-            texts, labels = texts.to(device), labels.to(device)
+            texts = texts.to(device, non_blocking=True)
+            labels = labels.to(device, non_blocking=True)
             optimizer.zero_grad()
             outputs = model(texts)
             loss = criterion(outputs, labels)
@@ -108,7 +121,8 @@ def main(args):
         val_preds, val_labels = [], []
         with torch.no_grad():
             for texts, labels in val_loader:
-                texts, labels = texts.to(device), labels.to(device)
+                texts = texts.to(device, non_blocking=True)
+                labels = labels.to(device, non_blocking=True)
                 outputs = model(texts)
                 _, preds = torch.max(outputs, 1)
                 val_preds.extend(preds.cpu().numpy())
@@ -147,7 +161,8 @@ def main(args):
     val_preds, val_labels_final = [], []
     with torch.no_grad():
         for texts, labels in val_loader:
-            texts, labels = texts.to(device), labels.to(device)
+            texts = texts.to(device, non_blocking=True)
+            labels = labels.to(device, non_blocking=True)
             outputs = model(texts)
             _, preds = torch.max(outputs, 1)
             val_preds.extend(preds.cpu().numpy())
